@@ -1,12 +1,16 @@
 package com.femi.demo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Blog {
@@ -17,18 +21,31 @@ public class Blog {
     private String blogTitle;
      private String blogContent;
 
+
+     @CreationTimestamp
+     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
      private LocalDateTime dateCreated;
-     private LocalDateTime dateUpdated;
-     public  Blog(String blogTitle, String blogContent, LocalDateTime dateCreated, LocalDateTime dateUpdated){
-         this.blogTitle = blogTitle;
-         this.blogContent = blogContent;
-         this.dateCreated = dateCreated;
-         this.dateUpdated = dateUpdated;
-     }
 
-     public Blog(){
+    @UpdateTimestamp
+     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime dateUpdated;
 
-     }
+    public Blog(){
+
+    }
+
+    public Blog(long id, String blogTitle, String blogContent, LocalDateTime dateCreated, LocalDateTime dateUpdated) {
+        this.id = id;
+        this.blogTitle = blogTitle;
+        this.blogContent = blogContent;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+    }
+
+    public Blog(String blogTitle, String blogContent) {
+        this.blogTitle = blogTitle;
+        this.blogContent = blogContent;
+    }
 
     public long getId() {
         return id;
@@ -42,7 +59,7 @@ public class Blog {
         return blogTitle;
     }
 
-    public void setBlogTitle(String blogName) {
+    public void setBlogTitle(String blogTitle) {
         this.blogTitle = blogTitle;
     }
 
@@ -50,7 +67,7 @@ public class Blog {
         return blogContent;
     }
 
-    public void setBlogContent(String blogType) {
+    public void setBlogContent(String blogContent) {
         this.blogContent = blogContent;
     }
 
@@ -68,5 +85,16 @@ public class Blog {
 
     public void setDateUpdated(LocalDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return "Blog{" +
+                "id=" + id +
+                ", blogTitle='" + blogTitle + '\'' +
+                ", blogContent='" + blogContent + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", dateUpdated=" + dateUpdated +
+                '}';
     }
 }

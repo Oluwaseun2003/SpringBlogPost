@@ -22,8 +22,6 @@ public class BlogService {
         //MAPPING NECESSARY FIELDS
         blog.setBlogTitle(blogDto.getBlogTitle());
         blog.setBlogContent(blogDto.getBlogContent());
-        blog.setDateCreated(blogDto.getDateCreated());
-        blog.setDateUpdated(blogDto.getDateUpdated());
 
         //SAVE INTO OUR REPO
         return blogRepo.save(blog);
@@ -45,8 +43,6 @@ public class BlogService {
 
         blog.setBlogTitle(blogDto.getBlogTitle());
         blog.setBlogContent(blogDto.getBlogContent());
-        blog.setDateCreated(blogDto.getDateCreated());
-        blog.setDateUpdated(blogDto.getDateUpdated());
 
         return blogRepo.save(blog);
 
@@ -55,15 +51,9 @@ public class BlogService {
 
 
     public Object deleteBlog(Long id){
-        Blog blog = blogRepo.findById(id)
+           Blog blog = blogRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Blog post can be found"));
         blogRepo.delete(blog);
         return ("Blog post has been updated successfully");
     }
-
-
-
-
-
-
 }
